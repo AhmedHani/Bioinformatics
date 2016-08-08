@@ -15,8 +15,6 @@ def pattern_count(text, pattern):
         else:
             return count
 
-#print(pattern_count(text, pattern))
-
 def frequent_word(text, k):
     frequent_patterns = []
     count = []
@@ -31,7 +29,14 @@ def frequent_word(text, k):
         if count[i] == max_count:
             frequent_patterns.append(text[i:(k + i)])
 
-    print(len(frequent_patterns))
-    return set(frequent_patterns)
+    return frequent_patterns
 
-print(frequent_word(text, k))
+unique = set(frequent_word(text, k))
+unique_list = list(unique)
+
+res = ""
+
+for i in range(0, len(unique_list)):
+    res += str(unique_list[i]) + " "
+
+print(res)
