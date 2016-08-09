@@ -30,14 +30,14 @@ def main():
         current_sample = input[i].replace('\n', '').split('\n')
         id = current_sample[0][:13]
         dna = current_sample[0][13:]
-        data.append(Pair(id, dna))
+        data.append((id, dna))
 
-    for i in range(0, len(data)):
-        freq = Counter(data[i].genome)
+    for id, genome in data:
+        freq = Counter(genome)
         gc_freq = freq['G'] + freq['C']
-        gc_precentage = (float(gc_freq) / float(len(data[i].genome))) * float(100.0)
+        gc_precentage = (float(gc_freq) / float(len(genome))) * float(100.0)
         if gc_precentage > best_precentage:
-            selected_id = str(data[i].id)
+            selected_id = str(id)
             best_precentage = gc_precentage
 
     print(selected_id)
