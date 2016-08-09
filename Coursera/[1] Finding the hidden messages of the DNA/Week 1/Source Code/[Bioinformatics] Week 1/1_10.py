@@ -120,10 +120,4 @@ def frequency_count(text, k):
 
 res_lis = frequency_count(lines[0], int(lines[1]))
 
-res = ""
-
-for i in range(0, len(res_lis)):
-    res += str(res_lis[i])
-    res += " "
-
-print(res)
+print(" ".join(map(lambda v: str(v), res_lis)))
