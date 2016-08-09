@@ -6,18 +6,6 @@ ___author__ = 'ahani'
 
 from collections import Counter
 
-
-class Pair(object):
-    def __init__(self, id, genome):
-        self.id = id
-        self.genome = genome
-
-    def get_id(self):
-        return self.id
-
-    def get_genome(self):
-        return self.genome
-
 def main():
     with open('./data/gc.txt') as f:
         input = f.read().split(">")
