@@ -34,9 +34,5 @@ def frequent_word(text, k):
 unique = set(frequent_word(text, k))
 unique_list = list(unique)
 
-res = ""
+print(" ".join(map(lambda v: str(v), unique_list)))
 
-for i in range(0, len(unique_list)):
-    res += str(unique_list[i]) + " "
-
-print(res)

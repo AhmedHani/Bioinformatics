@@ -87,6 +87,27 @@ def pattern_to_number(pattern):
 
     return int(math.floor(res))
 
+def number_to_symbol(number):
+    if number == 0:
+        return 'A'
+    if number == 1:
+        return 'C'
+    if number == 2:
+        return 'G'
+    if number == 3:
+        return 'T'
+
+def number_to_pattern(index, k):
+    if k == 1:
+        return number_to_symbol(index)
+
+    prefix_index = int(index / 4)
+    remainder = index % 4
+    symbol = number_to_symbol(remainder)
+    prefix_pattern = number_to_pattern(prefix_index, k - 1)
+
+    return prefix_pattern + symbol
+
 def frequency_count(text, k):
     freq_array = [0 for i in range(0, 4**k)]
 
