@@ -27,6 +27,11 @@ class RNA(object):
         for i in range(0, len(self.__rna_string), 3):
             codon = self.__rna_string[i] + self.__rna_string[i + 1] + self.__rna_string[i + 2] \
                 if i + 1 <= len(self.__rna_string) - 1 and i + 2 <= len(self.__rna_string) - 1 else ""
+
+            if codon in self.__codons_table:
+                if not self.__codons_table[codon]:
+                    break
+
             self.__amino_acid += self.__codons_table[codon] if codon in self.__codons_table else ""
 
         return self.__amino_acid

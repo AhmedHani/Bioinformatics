@@ -27,5 +27,5 @@ CCGGAGGAGAAAGTTGTCGGTTCTGAGGCG
 
 
 ======
-Execution Time: 0.694999933243 s
+Execution Time: 0.762000083923 s
 Memory Used: 10 MB

@@ -11,5 +11,5 @@ ATGGCC
 
 
 ======
-Execution Time: 0.000999927520752 s
+Execution Time: 0.0019998550415 s
 Memory Used: 10 MB
