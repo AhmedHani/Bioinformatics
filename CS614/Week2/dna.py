@@ -83,6 +83,9 @@ class DNA(object):
     def complement_dna(self):
         return self.__complement_dna(self.__dna_string)
 
+    def reverse_complement(self):
+        return self.__reverse_complement(self.__dna_string)
+
     def most_frequent_k_mer(self, k):
         frequent_k_mers = {}
         k_mers = []
@@ -124,6 +127,26 @@ class DNA(object):
                 reversed_dna += 'C'
 
         return reversed_dna
+
+    @staticmethod
+    def __reverse_complement(dna_string):
+        reversed_dna = dna_string[::-1]
+        reversed_complement = ""
+
+        for i in range(0, len(reversed_dna)):
+            if reversed_dna[i] == 'A':
+                reversed_complement += 'T'
+            elif reversed_dna[i] == 'G':
+                reversed_complement += 'C'
+            elif reversed_dna[i] == 'T':
+                reversed_complement += 'A'
+            elif reversed_dna[i] == 'C':
+                reversed_complement += 'G'
+            elif reversed_dna[i] == 'G':
+                reversed_complement += 'C'
+
+        return reversed_complement
+
 
     @staticmethod
     def __dna_to_rna_string(dna_string):

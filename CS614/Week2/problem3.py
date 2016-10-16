@@ -45,6 +45,5 @@ def main():
             print(k_mer)
 
 
-
 if __name__ == '__main__':
     main()
