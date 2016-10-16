@@ -69,9 +69,3 @@ class DataReader(object):
                         self.__testing_data.append(all_k_mers)
 
         return self.__training_data, self.__testing_data
-
-
-
-
-
-
