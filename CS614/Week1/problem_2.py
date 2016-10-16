@@ -16,7 +16,6 @@ def main():
     codons_table = data_reader.get_rna_codon_table()
 
     for sample in training_data:
-
         dna_string = sample[0][0]
         amino_acid = sample[0][1]
         output = sample[1]

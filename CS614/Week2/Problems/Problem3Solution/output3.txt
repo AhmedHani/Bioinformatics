@@ -1,0 +1,9 @@
+CGAGTGTCGAGT
+TCGAGTGTCGAG
+GAGTGTCGAGTG
+
+
+
+======
+Execution Time: 0.00100016593933 s
+Memory Used: 9 MB

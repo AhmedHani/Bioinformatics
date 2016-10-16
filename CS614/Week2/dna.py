@@ -83,6 +83,26 @@ class DNA(object):
     def complement_dna(self):
         return self.__complement_dna(self.__dna_string)
 
+    def most_frequent_k_mer(self, k):
+        frequent_k_mers = {}
+        k_mers = []
+
+        for i in range(0, len(self.__dna_string) - k):
+            substring = self.__dna_string[i:(i + k)]
+
+            if substring in frequent_k_mers:
+                frequent_k_mers[substring] += 1
+            else:
+                frequent_k_mers[substring] = 1
+
+        max_freq = max(frequent_k_mers.values())
+
+        for item in frequent_k_mers.items():
+            if item[1] == max_freq:
+                k_mers.append(item[0])
+
+        return k_mers
+
     @staticmethod
     def __reverse_dna(dna_string):
         return dna_string[::-1]
