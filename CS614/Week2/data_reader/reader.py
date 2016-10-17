@@ -61,13 +61,14 @@ class DataReader(object):
             for file_ in files_list:
                 if file_.__contains__("dataset"):
                     with open(file_, "rb") as r:
-                        dna = r.readline()
-                        k, l, t = r.readline().split(" ")
+                        dna = r.readline().strip()
+                        k, l, t = r.readline().strip().split(" ")
 
                         self.__test_cases.append((dna, (k, (l, t))))
                 if file_.__contains__("output"):
                     with open(file_, "rb") as r:
-                        all_k_mers = r.readall()
+                        all_k_mers = r.readlines()
+                        all_k_mers = map(lambda v: str(v).strip(), all_k_mers)
 
                         self.__output.append(all_k_mers)
 

@@ -118,6 +118,28 @@ class DNA(object):
 
         return ' '.join(map(lambda v: str(v), pattern_indices))
 
+    def get_clumps_patterns(self, k, t, l):
+        clumps_patterns = []
+
+        for i in range(0, len(self.__dna_string)):
+            k_mers = {}
+            for j in range(i, i + l):
+                if j + k < len(self.__dna_string):
+                    k_mer = self.__dna_string[j:(j + k)]
+
+                    if k_mer in k_mers:
+                        k_mers[k_mer] += 1
+                    else:
+                        k_mers[k_mer] = 1
+                else:
+                    break
+
+            for k_mer in k_mers:
+                if k_mers[k_mer] >= t:
+                    clumps_patterns.append(k_mer)
+
+        return list(set(clumps_patterns))
+
     @staticmethod
     def __reverse_dna(dna_string):
         return dna_string[::-1]
@@ -158,7 +180,6 @@ class DNA(object):
                 reversed_complement += 'C'
 
         return reversed_complement
-
 
     @staticmethod
     def __dna_to_rna_string(dna_string):
