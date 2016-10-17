@@ -106,6 +106,18 @@ class DNA(object):
 
         return k_mers
 
+    def get_pattern_indices(self, pattern):
+        pattern_indices = []
+        pattern_length = len(pattern)
+
+        for i in range(0, len(self.__dna_string) - pattern_length):
+            substring = self.__dna_string[i:(i + pattern_length)]
+
+            if substring == pattern:
+                pattern_indices.append(i)
+
+        return ' '.join(map(lambda v: str(v), pattern_indices))
+
     @staticmethod
     def __reverse_dna(dna_string):
         return dna_string[::-1]

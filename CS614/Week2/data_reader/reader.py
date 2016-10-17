@@ -53,10 +53,9 @@ class DataReader(object):
                         self.__test_cases.append((pattern.strip(), genome.strip()))
                 if file_.__contains__("output"):
                     with open(file_, "rb") as r:
-                        positions = r.readline()
-                        positions_list = positions.split(" ")
+                        positions = r.readline().strip()
 
-                        self.__output.append(positions_list)
+                        self.__output.append(positions)
 
         if "Problem6" in self.__problem_dataset_dir:
             for file_ in files_list:
