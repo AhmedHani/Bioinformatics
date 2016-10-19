@@ -1,0 +1,7 @@
+AAACCAGGTGG
+
+
+
+======
+Execution Time: 0.958000183105 s
+Memory Used: 10 MB
