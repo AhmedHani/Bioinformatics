@@ -145,7 +145,6 @@ class DNA(object):
         indices_list = []
         indices_list.append(1000)
         g_c_diff_count = 0
-        min_diff = 1000
 
         for i in range(0, len(self.__dna_string)):
             if self.__dna_string[i] == 'C':
