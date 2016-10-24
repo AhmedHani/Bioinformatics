@@ -1,5 +1,6 @@
 ___author__ = 'Ahmed Hani Ibrahim'
 from rna import RNA
+import numpy as np
 
 
 class DNA(object):
@@ -139,6 +140,23 @@ class DNA(object):
                     clumps_patterns.append(k_mer)
 
         return list(set(clumps_patterns))
+
+    def get_min_skew(self):
+        indices_list = []
+        indices_list.append(1000)
+        g_c_diff_count = 0
+        min_diff = 1000
+
+        for i in range(0, len(self.__dna_string)):
+            if self.__dna_string[i] == 'C':
+                g_c_diff_count -= 1
+            if self.__dna_string[i] == 'G':
+                g_c_diff_count += 1
+
+            indices_list.append(g_c_diff_count)
+
+        return np.array(np.where(np.array(indices_list) == np.array(indices_list).min()))[0]
+
 
     @staticmethod
     def __reverse_dna(dna_string):
