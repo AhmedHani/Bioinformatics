@@ -142,8 +142,7 @@ class DNA(object):
         return list(set(clumps_patterns))
 
     def get_min_skew(self):
-        indices_list = []
-        indices_list.append(1000)
+        indices_list = [1000]
         g_c_diff_count = 0
 
         for i in range(0, len(self.__dna_string)):
@@ -156,6 +155,21 @@ class DNA(object):
 
         return np.array(np.where(np.array(indices_list) == np.array(indices_list).min()))[0]
 
+    def get_mismatched_pattern_indices(self, pattern, d):
+        pattern_indices = []
+        pattern_length = len(pattern)
+        matched = []
+
+        for i in range(0, len(self.__dna_string) - pattern_length):
+            substring = self.__dna_string[i:(i + pattern_length)]
+
+            if substring == pattern:
+                pattern_indices.append(i)
+            elif self.__missmatches(substring, pattern) <= d:
+                matched.append(substring)
+                pattern_indices.append(i)
+
+        return pattern_indices
 
     @staticmethod
     def __reverse_dna(dna_string):
@@ -201,3 +215,34 @@ class DNA(object):
     @staticmethod
     def __dna_to_rna_string(dna_string):
         return dna_string.replace('T', 'U')
+
+    @staticmethod
+    def __edit_distance(substring1, substring2):
+        dp_table = [[-1 for i in range(0, len(substring1) + 1)] for j in range(0, len(substring2) + 1)]
+
+        for j in range(0, len(substring1)):
+            dp_table[0][j] = j
+
+        for i in range(0, len(substring1)):
+            dp_table[i][0] = i
+
+        for i in range(0, len(substring1) + 1):
+            for j in range(0, len(substring1) + 1):
+                if substring1[i - 1] == substring2[j - 1]:
+                    dp_table[i][j] = dp_table[i - 1][j - 1]
+                else:
+                    dp_table[i][j] = 1 + min(dp_table[i][j - 1], min(dp_table[i - 1][j], dp_table[i - 1][j - 1]))
+
+        return dp_table[len(substring1)][len(substring1)]
+
+    @staticmethod
+    def __missmatches(substring1, substring2):
+        count = 0
+
+        for i in range(0, len(substring1)):
+            if substring1[i] != substring2[i]:
+                count += 1
+
+        return count
+
+
