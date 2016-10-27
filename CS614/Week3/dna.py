@@ -171,6 +171,49 @@ class DNA(object):
 
         return pattern_indices
 
+    def most_frequent_missmatched_k_mer(self, k, d):
+        def most_frequent_missmatched_small_k():
+            missmatched_k_mers = []
+
+            def get_all_possible_k_mer():
+                import itertools
+
+                alpha = "AGCT"
+                k_mers = map(''.join, itertools.product(alpha, repeat=k))
+
+                return k_mers
+
+            all_k_mers = get_all_possible_k_mer()
+            k_mers_freq = {}
+
+            for k_mer in all_k_mers:
+                for i in range(0, len(self.__dna_string) - k):
+                    substring = self.__dna_string[i:(i + k)]
+
+                    if substring == k_mer:
+                        if k_mer not in k_mers_freq:
+                            k_mers_freq[k_mer] = 1
+                        else:
+                            k_mers_freq[k_mer] += 1
+
+                    elif self.__missmatches(substring, k_mer) <= d:
+                        if k_mer not in k_mers_freq:
+                            k_mers_freq[k_mer] = 1
+                        else:
+                            k_mers_freq[k_mer] += 1
+
+            max_freq = max(k_mers_freq.values())
+
+            for item in k_mers_freq.items():
+                if item[1] == max_freq:
+                    missmatched_k_mers.append(item[0])
+
+            return missmatched_k_mers
+        def most_frequent_missmatched_large_k():
+            pass
+
+        return most_frequent_missmatched_small_k() if k <= 4 else most_frequent_missmatched_small_k()
+
     @staticmethod
     def __reverse_dna(dna_string):
         return dna_string[::-1]

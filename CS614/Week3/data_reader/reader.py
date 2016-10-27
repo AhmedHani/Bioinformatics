@@ -44,4 +44,23 @@ class DataReader(object):
 
                         self.__output.append(indices)
 
+        if "Problem9" in self.__problem_dataset_dir:
+            for file_ in files_list:
+                if file_.__contains__("dataset"):
+                    with open(file_, "rb") as r:
+                        genome = r.readline().strip()
+                        k = r.readline().strip()
+                        d = r.readline().strip()
+
+                        self.__test_cases.append((genome, (k, d)))
+
+                elif file_.__contains__("output"):
+                    with open(file_, "rb") as r:
+                        substrings = []
+
+                        for line in r:
+                            substrings.append(line.strip())
+
+                        self.__output.append(substrings)
+
         return self.__test_cases, self.__output
