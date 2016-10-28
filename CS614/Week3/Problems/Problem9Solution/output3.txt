@@ -1,0 +1,8 @@
+ACACGCGC
+CACGCGCA
+
+
+
+======
+Execution Time: 5.21700000763 s
+Memory Used: 21 MB

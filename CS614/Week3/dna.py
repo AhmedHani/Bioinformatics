@@ -165,20 +165,23 @@ class DNA(object):
 
             if substring == pattern:
                 pattern_indices.append(i)
-            elif self.__missmatches(substring, pattern) <= d:
+            elif self.__hamming_distance(substring, pattern) <= d:
                 matched.append(substring)
                 pattern_indices.append(i)
 
         return pattern_indices
 
     def most_frequent_missmatched_k_mer(self, k, d):
+        if k < d:
+            raise Exception("Size of missmatches can't be less than the k-mer length!")
+
         def most_frequent_missmatched_small_k():
             missmatched_k_mers = []
 
             def get_all_possible_k_mer():
                 import itertools
 
-                alpha = "AGCT"
+                alpha = "ACGT"
                 k_mers = map(''.join, itertools.product(alpha, repeat=k))
 
                 return k_mers
@@ -196,7 +199,7 @@ class DNA(object):
                         else:
                             k_mers_freq[k_mer] += 1
 
-                    elif self.__missmatches(substring, k_mer) <= d:
+                    elif self.__hamming_distance(substring, k_mer) <= d:
                         if k_mer not in k_mers_freq:
                             k_mers_freq[k_mer] = 1
                         else:
@@ -209,10 +212,43 @@ class DNA(object):
                     missmatched_k_mers.append(item[0])
 
             return missmatched_k_mers
-        def most_frequent_missmatched_large_k():
-            pass
 
-        return most_frequent_missmatched_small_k() if k <= 4 else most_frequent_missmatched_small_k()
+        def most_frequent_missmatched_large_k():
+            def get_missmatched_k_mers(k_mers, missmatch_count, missmatched_k_mers):
+                nucleotide = ['A', 'C', 'G', 'T']
+
+                for i in range(0, len(k_mers)):
+                    for char in nucleotide:
+                        candidate = k_mers[:i] + char + k_mers[i + 1:]
+
+                        if missmatch_count <= 1:
+                            missmatched_k_mers.add(candidate)
+                        else:
+                            get_missmatched_k_mers(candidate, missmatch_count - 1, missmatched_k_mers)
+
+            frequent_k_mers = {}
+
+            for i in range(0, len(self.__dna_string)):
+                substring = self.__dna_string[i:(i + k)]
+                miss_matched_k_mers = set()
+                get_missmatched_k_mers(substring, d, miss_matched_k_mers)
+
+                for k_mer in miss_matched_k_mers:
+                    if k_mer in frequent_k_mers:
+                        frequent_k_mers[k_mer] += 1
+                    else:
+                        frequent_k_mers[k_mer] = 1
+
+            max_freq = max(frequent_k_mers.values())
+            target_k_mers = []
+
+            for k_mer in frequent_k_mers.items():
+                if k_mer[1] == max_freq:
+                    target_k_mers.append(k_mer[0])
+
+            return target_k_mers
+
+        return most_frequent_missmatched_small_k() if k <= 4 else most_frequent_missmatched_large_k()
 
     @staticmethod
     def __reverse_dna(dna_string):
@@ -279,7 +315,7 @@ class DNA(object):
         return dp_table[len(substring1)][len(substring1)]
 
     @staticmethod
-    def __missmatches(substring1, substring2):
+    def __hamming_distance(substring1, substring2):
         count = 0
 
         for i in range(0, len(substring1)):

@@ -29,3 +29,16 @@ class DataWriter(object):
                 writer.write("Execution Time: " + str(running_time) + " s")
                 writer.write("\n")
                 writer.write("Memory Used: " + str(memory_used) + " MB")
+
+        if "Problem9" in self.__solution_dir:
+            with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
+                for k_mer in output_:
+                    writer.write(k_mer)
+                    writer.write("\n")
+
+                writer.write("\n\n\n")
+                writer.write("======")
+                writer.write("\n")
+                writer.write("Execution Time: " + str(running_time) + " s")
+                writer.write("\n")
+                writer.write("Memory Used: " + str(memory_used) + " MB")
