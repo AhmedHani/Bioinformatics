@@ -12,20 +12,20 @@ class DataReader(object):
         files_list = glob.glob(self.__problem_dataset_dir + "\\*.txt")
         files_list.sort()
 
-        if "Problem7" in self.__problem_dataset_dir:
+        if "Problem10" in self.__problem_dataset_dir:
             for file_ in files_list:
                 if file_.__contains__("dataset"):
                     with open(file_, "rb") as r:
-                        dna = r.readline().strip()
+                        alpha_dna = r.readline().strip()
+                        beta_dna = r.readline().strip()
 
-                        self.__test_cases.append(dna)
+                        self.__test_cases.append((alpha_dna, beta_dna))
 
                 elif file_.__contains__("output"):
                     with open(file_, "rb") as r:
-                        indices = r.readline().strip().split(" ")
-                        indices = map(lambda v: int(v), indices)
+                        lcs = r.readline().strip()
 
-                        self.__output.append(indices)
+                        self.__output.append(lcs)
 
         if "Problem8" in self.__problem_dataset_dir:
             for file_ in files_list:
