@@ -1,13 +1,10 @@
 ___author__ = 'Ahmed Hani Ibrahim'
-from strings_algorithms import StringsAlgorithms
 
 from usage import Usage
 from data_reader.reader import DataReader
 from data_writer.writer import DataWriter
-from dna import DNA
 from strings_algorithms import StringsAlgorithms
 import os
-import numpy as np
 
 #A_ACCT_TGG
 #ACAC_TGTGA
