@@ -51,5 +51,6 @@ def main():
         print("Execution Time: " + str(usage.get_execution_time()) + " s")
         print("Memory Used: " + str(usage.get_memory_usage()) + " MB")
 
+
 if __name__ == '__main__':
     main()

@@ -10,18 +10,13 @@ class StringsAlgorithms(object):
         self.__beta_string_length = beta_string.__len__()
 
     def lcs(self, algorithm='dp'):
-        if algorithm is 'dp':
-            return self.__lcs_dp()
-        elif algorithm is 'suf':
-            pass
-        pass
+        return self.__lcs_dp() if algorithm == 'dp' else self.__lcs_dp()
 
-    def alignment(self, algorithm='leve'):
-        if algorithm is 'leve':
+    def alignment(self, _type='global', scoring_matrix=dict):
+        if _type is 'local':
             pass
-        elif algorithm is 'nwun':
-            pass
-        pass
+        elif _type is 'global':
+            return self.__needleman_wunsch(scoring_matrix)
 
     def __lcs_dp(self):
         dp_table = np.zeros((self.__alpha_string_length + 1, self.__beta_string_length + 1))
@@ -33,7 +28,7 @@ class StringsAlgorithms(object):
                 else:
                     dp_table[i][j] = max(dp_table[i - 1][j], dp_table[i][j - 1])
 
-        #print(dp_table[self.__alpha_string_length][self.__beta_string_length])
+        # print(dp_table[self.__alpha_string_length][self.__beta_string_length])
 
         lcs_string = ""
         alpha_ptr = self.__alpha_string_length
@@ -50,3 +45,73 @@ class StringsAlgorithms(object):
                 beta_ptr -= 1
 
         return lcs_string[::-1]
+
+    def __needleman_wunsch(self, scoring_matrix):
+        gab_penalty = -5
+        dp_table = np.zeros((self.__alpha_string_length + 1, self.__beta_string_length + 1))
+
+        for i in range(0, self.__alpha_string_length + 1):
+            dp_table[i][0] = gab_penalty * i
+
+        for j in range(0, self.__beta_string_length + 1):
+            dp_table[0][j] = gab_penalty * j
+
+        for i in range(0, self.__alpha_string_length + 1):
+            for j in range(0, self.__beta_string_length + 1):
+                dp_table[i][j] = max(
+                    dp_table[i - 1][j - 1] + scoring_matrix[(self.__alpha_string[i - 1], self.__beta_string[j - 1])],
+                    dp_table[i - 1][j] + gab_penalty,
+                    dp_table[i][j - 1] + gab_penalty
+                )
+
+        alpha_alignment = ""
+        beta_alignment = ""
+        alpha_ptr = self.__alpha_string_length
+        beta_ptr = self.__beta_string_length
+
+        while alpha_ptr > 0 and beta_ptr > 0:
+            if dp_table[alpha_ptr][beta_ptr] == dp_table[alpha_ptr - 1][beta_ptr - 1] + scoring_matrix[(self.__alpha_string[alpha_ptr - 1], self.__beta_string[beta_ptr - 1])]:
+                alpha_alignment += self.__alpha_string[alpha_ptr - 1]
+                beta_alignment += self.__beta_string[beta_ptr - 1]
+                alpha_ptr -= 1
+                beta_ptr -= 1
+            elif dp_table[alpha_ptr][beta_ptr] == dp_table[alpha_ptr - 1][beta_ptr] + gab_penalty:
+                alpha_alignment += self.__alpha_string[alpha_ptr - 1]
+                beta_alignment += "-"
+                alpha_ptr -= 1
+            elif dp_table[alpha_ptr][beta_ptr] == dp_table[alpha_ptr][beta_ptr - 1] + gab_penalty:
+                alpha_alignment += "-"
+                beta_alignment += self.__beta_string[beta_ptr - 1]
+                beta_ptr -= 1
+
+        while alpha_ptr > 0:
+            alpha_alignment += self.__alpha_string[alpha_ptr - 1]
+            beta_alignment += "-"
+            alpha_ptr -= 1
+
+        while beta_ptr > 0:
+            alpha_alignment += "-"
+            beta_alignment += self.__beta_string[beta_ptr - 1]
+            beta_ptr -= 1
+
+        alpha_alignment = alpha_alignment[::-1]
+        beta_alignment = beta_alignment[::-1]
+
+        score = 0
+
+        for i in range(0, len(alpha_alignment)):
+            if alpha_alignment[i] == beta_alignment[i]:
+                score += scoring_matrix[(alpha_alignment[i], beta_alignment[i])]
+            elif alpha_alignment[i] != beta_alignment[i] and alpha_alignment[i] != "-" and beta_alignment[i] != "-":
+                score += scoring_matrix[(alpha_alignment[i], beta_alignment[i])]
+            elif alpha_alignment[i] == "-":
+                score += gab_penalty
+            elif beta_alignment[i] == "-":
+                score += gab_penalty
+
+        all_res = (score, (alpha_alignment, beta_alignment))
+
+        return all_res
+
+
+
