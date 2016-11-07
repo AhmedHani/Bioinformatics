@@ -22,6 +22,7 @@ def main():
         case_output = output[train_i]
         strings_algorithms = StringsAlgorithms(alpha_dna, beta_dna)
         lcs = strings_algorithms.lcs('dp')
+        print(len(lcs))
 
         if len(case_output) != len(lcs):
             raise Exception("Output not matched!\nExpecting: " + str(case_output) + "\nFound: " + str(lcs))
@@ -36,9 +37,10 @@ def main():
         alpha_dna, beta_dna = test_cases[test_i]
         strings_algorithms = StringsAlgorithms(alpha_dna, beta_dna)
         lcs = strings_algorithms.lcs('dp')
+        print(len(lcs))
         usage.end()
 
-        writer.write_data(test_i + 1, lcs, usage.get_execution_time(), usage.get_memory_usage())
+        #writer.write_data(test_i + 1, lcs, usage.get_execution_time(), usage.get_memory_usage())
         print("\n\nInput:\n" + alpha_dna + "\n" + beta_dna + "\n")
 
         print("\n\nOutput")

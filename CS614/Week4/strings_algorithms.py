@@ -1,5 +1,7 @@
 ___author__ = 'Ahmed Hani Ibrahim'
 import numpy as np
+import copy as cp
+from numpy import unravel_index
 
 
 class StringsAlgorithms(object):
@@ -14,7 +16,7 @@ class StringsAlgorithms(object):
 
     def alignment(self, _type='global', scoring_matrix=dict):
         if _type is 'local':
-            pass
+            return self.__smith_waterman(scoring_matrix)
         elif _type is 'global':
             return self.__needleman_wunsch(scoring_matrix)
 
@@ -110,6 +112,49 @@ class StringsAlgorithms(object):
                 score += gab_penalty
 
         all_res = (score, (alpha_alignment, beta_alignment))
+
+        return all_res
+
+    def __smith_waterman(self, scoring_matrix):
+        gab_penalty = -5
+        dp_table = np.zeros((self.__alpha_string_length + 1, self.__beta_string_length + 1))
+        local_alignment_ending_pointer = cp.copy(dp_table)
+
+        for i in range(0, self.__alpha_string_length + 1):
+            for j in range(0, self.__beta_string_length + 1):
+                end = 0
+                diagonal = dp_table[i - 1][j - 1] + scoring_matrix[(self.__alpha_string[i - 1], self.__beta_string[j - 1])]
+                up = dp_table[i][j - 1] + gab_penalty
+                left = dp_table[i - 1][j] + gab_penalty
+                all_ = [left, up, diagonal, end]
+                dp_table[i][j] = max(all_)
+                local_alignment_ending_pointer[i][j] = all_.index(dp_table[i][j])
+
+        alpha_ptr, beta_ptr = unravel_index(dp_table.argmax(), dp_table.shape)
+        maximum_score = int(dp_table[alpha_ptr][beta_ptr])
+
+        alpha_alignment = ""
+        beta_alignment = ""
+
+        while local_alignment_ending_pointer[alpha_ptr][beta_ptr] != 3 and alpha_ptr > 0 and beta_ptr > 0:
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 2:
+                alpha_alignment += self.__alpha_string[alpha_ptr - 1]
+                beta_alignment += self.__beta_string[beta_ptr - 1]
+                alpha_ptr -= 1
+                beta_ptr -= 1
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 1:
+                beta_alignment += self.__beta_string[beta_ptr - 1]
+                alpha_alignment += "-"
+                beta_ptr -= 1
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 0:
+                alpha_alignment += self.__alpha_string[alpha_ptr - 1]
+                beta_alignment += "-"
+                alpha_ptr -= 1
+
+        alpha_alignment = alpha_alignment[::-1]
+        beta_alignment = beta_alignment[::-1]
+
+        all_res = (maximum_score, (alpha_alignment, beta_alignment))
 
         return all_res
 

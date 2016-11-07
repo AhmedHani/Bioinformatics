@@ -36,11 +36,14 @@ class DataWriter(object):
                 writer.write("\n")
                 writer.write("Memory Used: " + str(memory_used) + " MB")
 
-        if "Problem9" in self.__solution_dir:
+        if "Problem12" in self.__solution_dir:
             with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
-                for k_mer in output_:
-                    writer.write(k_mer)
-                    writer.write("\n")
+                writer.write(str(output_[0]))
+                writer.write("\n")
+                writer.write(output_[1][0])
+                writer.write("\n")
+                writer.write(output_[1][1])
+                writer.write("\n")
 
                 writer.write("\n\n\n")
                 writer.write("======")

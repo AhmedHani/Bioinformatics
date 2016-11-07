@@ -9,6 +9,7 @@ class DataReader(object):
         self.__output = []
 
         self.__blosum = {}
+        self.__pam = {}
 
     def get_BLOSUM62_data(self):
         files_list = glob.glob(self.__problem_dataset_dir + "\\*.txt")
@@ -33,7 +34,33 @@ class DataReader(object):
                         for i in range(0, len(alpha)):
                             self.__blosum[(char, alpha[i])] = int(row[i + 1].strip())
 
-            return self.__blosum
+        return self.__blosum
+
+    def get_PAM_data(self):
+        files_list = glob.glob(self.__problem_dataset_dir + "\\*.txt")
+        files_list.sort()
+
+        for file_ in files_list:
+            if file_.__contains__("PAM"):
+                with open(file_, "rb") as reader:
+                    idx = 0
+                    alpha = []
+
+                    for line in reader:
+                        if idx == 0:
+                            alpha = line.strip().split("  ")
+                            idx += 1
+                            continue
+
+                        row = line.strip().split(" ")
+                        row = filter(None, row)
+                        char = row[0].strip()
+
+                        for i in range(0, len(alpha)):
+                            self.__pam[(char, alpha[i])] = int(row[i + 1].strip())
+                    break
+
+        return self.__pam
 
     def get_data(self):
         files_list = glob.glob(self.__problem_dataset_dir + "\\*.txt")
@@ -71,23 +98,21 @@ class DataReader(object):
 
                         self.__output.append((int(score), (alpha_alignment, beta_alignment)))
 
-        if "Problem9" in self.__problem_dataset_dir:
+        if "Problem12" in self.__problem_dataset_dir:
             for file_ in files_list:
                 if file_.__contains__("dataset"):
                     with open(file_, "rb") as r:
-                        genome = r.readline().strip()
-                        k = r.readline().strip()
-                        d = r.readline().strip()
+                        alpha_dna = r.readline().strip()
+                        beta_dna = r.readline().strip()
 
-                        self.__test_cases.append((genome, (k, d)))
+                        self.__test_cases.append((alpha_dna, beta_dna))
 
                 elif file_.__contains__("output"):
                     with open(file_, "rb") as r:
-                        substrings = []
+                        score = r.readline().strip()
+                        alpha_alignment = r.readline().strip()
+                        beta_alignment = r.readline().strip()
 
-                        for line in r:
-                            substrings.append(line.strip())
-
-                        self.__output.append(substrings)
+                        self.__output.append((int(score), (alpha_alignment, beta_alignment)))
 
         return self.__test_cases, self.__output
