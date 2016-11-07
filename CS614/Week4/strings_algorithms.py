@@ -130,23 +130,25 @@ class StringsAlgorithms(object):
                 dp_table[i][j] = max(all_)
                 local_alignment_ending_pointer[i][j] = all_.index(dp_table[i][j])
 
+        end, up, left, diagonal = 3, 1, 0, 2
+
         alpha_ptr, beta_ptr = unravel_index(dp_table.argmax(), dp_table.shape)
         maximum_score = int(dp_table[alpha_ptr][beta_ptr])
 
         alpha_alignment = ""
         beta_alignment = ""
 
-        while local_alignment_ending_pointer[alpha_ptr][beta_ptr] != 3 and alpha_ptr > 0 and beta_ptr > 0:
-            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 2:
+        while local_alignment_ending_pointer[alpha_ptr][beta_ptr] != end and alpha_ptr > 0 and beta_ptr > 0:
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == diagonal:
                 alpha_alignment += self.__alpha_string[alpha_ptr - 1]
                 beta_alignment += self.__beta_string[beta_ptr - 1]
                 alpha_ptr -= 1
                 beta_ptr -= 1
-            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 1:
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == up:
                 beta_alignment += self.__beta_string[beta_ptr - 1]
                 alpha_alignment += "-"
                 beta_ptr -= 1
-            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == 0:
+            if local_alignment_ending_pointer[alpha_ptr][beta_ptr] == left:
                 alpha_alignment += self.__alpha_string[alpha_ptr - 1]
                 beta_alignment += "-"
                 alpha_ptr -= 1

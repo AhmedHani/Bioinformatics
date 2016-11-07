@@ -6,9 +6,6 @@ from data_writer.writer import DataWriter
 from strings_algorithms import StringsAlgorithms
 import os
 
-#A_ACCT_TGG
-#ACAC_TGTGA
-#AACTTG
 
 def main():
     problem_dataset_dir = os.path.join('Problems', 'Problem10')
@@ -40,7 +37,7 @@ def main():
         print(len(lcs))
         usage.end()
 
-        #writer.write_data(test_i + 1, lcs, usage.get_execution_time(), usage.get_memory_usage())
+        writer.write_data(test_i + 1, lcs, usage.get_execution_time(), usage.get_memory_usage())
         print("\n\nInput:\n" + alpha_dna + "\n" + beta_dna + "\n")
 
         print("\n\nOutput")

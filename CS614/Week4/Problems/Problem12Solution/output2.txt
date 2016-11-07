@@ -1,0 +1,9 @@
+23
+MEANL-Y
+PENALTY
+
+
+
+======
+Execution Time: 0.0 s
+Memory Used: 20 MB

@@ -323,5 +323,3 @@ class DNA(object):
                 count += 1
 
         return count
-
-

@@ -1,0 +1,9 @@
+1367
+KSAQWEMY
+ER-EW-MY
+
+
+
+======
+Execution Time: 3.85299992561 s
+Memory Used: 20 MB
