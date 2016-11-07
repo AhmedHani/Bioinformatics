@@ -15,7 +15,7 @@ def main():
     test_cases, output = data_reader.get_data()
     scoring_matrix = data_reader.get_PAM_data()
 
-    for train_i in range(1, len(output)):
+    for train_i in range(0, len(output)):
         alpha_dna, beta_dna = test_cases[train_i]
         case_output = output[train_i]
         strings_algorithms = StringsAlgorithms(alpha_dna, beta_dna)
