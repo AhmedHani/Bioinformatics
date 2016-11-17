@@ -4,7 +4,6 @@ ___author__ = 'Ahmed Hani Ibrahim'
 from usage import Usage
 from data_reader.reader import DataReader
 from data_writer.writer import DataWriter
-from strings_algorithms import StringsAlgorithms
 from dna import DNA
 import os
 
