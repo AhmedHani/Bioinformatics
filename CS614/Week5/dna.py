@@ -250,6 +250,15 @@ class DNA(object):
 
         return most_frequent_missmatched_small_k() if k <= 4 else most_frequent_missmatched_large_k()
 
+    def get_k_mers(self, k):
+        k_mers = []
+
+        for i in range(0, len(self.__dna_string) - k + 1):
+            substring = self.__dna_string[i:(i + k)]
+            k_mers.append(substring)
+
+        return k_mers
+
     @staticmethod
     def __reverse_dna(dna_string):
         return dna_string[::-1]

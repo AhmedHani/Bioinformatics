@@ -8,9 +8,10 @@ class DataWriter(object):
         self.__solution_dir = solution_dir
 
     def write_data(self, file_index, output_, running_time, memory_used):
-        if "Problem10" in self.__solution_dir:
+        if "Problem13" in self.__solution_dir:
             with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
-                writer.write(output_)
+                output_.sort()
+                writer.write('\n'.join(map(lambda v: str(v), output_)))
 
                 writer.write("\n\n\n")
                 writer.write("======")
