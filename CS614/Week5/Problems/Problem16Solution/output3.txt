@@ -969,5 +969,5 @@ TTTTTATTA -> TTTTATTAC
 
 
 ======
-Execution Time: 0.197999954224 s
+Execution Time: 0.175000190735 s
 Memory Used: 21 MB

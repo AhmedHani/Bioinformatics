@@ -1670,5 +1670,5 @@ TTTTTGTACTA -> TTTTGTACTAC
 
 
 ======
-Execution Time: 0.55999994278 s
+Execution Time: 0.526999950409 s
 Memory Used: 21 MB

@@ -67,11 +67,12 @@ class Graph(object):
         for i in range(0, len(prefix_k_mers)):
             prefix_suffix = prefix_k_mers[i][1:]
             k_mer_suffix = k_mers[i][1:]
+            k_mer_prefix = k_mers[i][0:len(k_mers[i]) - 1]
 
             for j in range(0, len(suffix_k_mers)):
                 suffix_prefix = suffix_k_mers[j][0:len(suffix_k_mers[j]) - 1]
 
-                if prefix_suffix == suffix_prefix and k_mer_suffix == suffix_k_mers[j]:
+                if prefix_suffix == suffix_prefix and k_mer_suffix == suffix_k_mers[j] and k_mer_prefix == prefix_k_mers[i]:
                     if prefix_k_mers[i] in self.__adj_list:
                         current = self.__adj_list[prefix_k_mers[i]]
                         current.append(suffix_k_mers[j])
