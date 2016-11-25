@@ -33,14 +33,36 @@ class DataWriter(object):
                 writer.write("\n")
                 writer.write("Memory Used: " + str(memory_used) + " MB")
 
-        if "Problem12" in self.__solution_dir:
+        if "Problem15" in self.__solution_dir:
             with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
-                writer.write(str(output_[0]))
+                for edge in sorted(output_.items()):
+                    writer.write(str(edge[0] + " -> "))
+
+                    adj_nodes = ""
+                    for string in edge[1]:
+                        adj_nodes += string + ","
+
+                    writer.write(adj_nodes[0:len(adj_nodes) - 1])
+                    writer.write("\n")
+
+                writer.write("\n\n\n")
+                writer.write("======")
                 writer.write("\n")
-                writer.write(output_[1][0])
+                writer.write("Execution Time: " + str(running_time) + " s")
                 writer.write("\n")
-                writer.write(output_[1][1])
-                writer.write("\n")
+                writer.write("Memory Used: " + str(memory_used) + " MB")
+
+        if "Problem16" in self.__solution_dir:
+            with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
+                for edge in sorted(output_.items()):
+                    writer.write(str(edge[0] + " -> "))
+
+                    adj_nodes = ""
+                    for string in edge[1]:
+                        adj_nodes += string + ","
+
+                    writer.write(adj_nodes[0:len(adj_nodes) - 1])
+                    writer.write("\n")
 
                 writer.write("\n\n\n")
                 writer.write("======")

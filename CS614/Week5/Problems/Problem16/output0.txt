@@ -8,4 +8,3 @@ GG -> GA,GG
 GT -> TT
 TA -> AA
 TG -> GC,GG,GT
-TT -> 
