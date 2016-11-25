@@ -30,22 +30,22 @@ class DataReader(object):
 
                         self.__output.append(k_mers)
 
-        if "Problem11" in self.__problem_dataset_dir:
+        if "Problem14" in self.__problem_dataset_dir:
             for file_ in files_list:
                 if file_.__contains__("dataset"):
                     with open(file_, "rb") as r:
-                        alpha_dna = r.readline().strip()
-                        beta_dna = r.readline().strip()
+                        k_mers = map(lambda v: v.strip(), r)
 
-                        self.__test_cases.append((alpha_dna, beta_dna))
+                        self.__test_cases.append(k_mers)
 
                 elif file_.__contains__("output"):
                     with open(file_, "rb") as r:
-                        score = r.readline().strip()
-                        alpha_alignment = r.readline().strip()
-                        beta_alignment = r.readline().strip()
+                        adj_list = {}
 
-                        self.__output.append((int(score), (alpha_alignment, beta_alignment)))
+                        for line in r:
+                            adj_list[line.strip().split(" -> ")[0]] = line.strip().split(" -> ")[1]
+
+                        self.__output.append(adj_list)
 
         if "Problem12" in self.__problem_dataset_dir:
             for file_ in files_list:

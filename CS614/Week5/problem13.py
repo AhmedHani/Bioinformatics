@@ -21,7 +21,7 @@ def main():
         dna = DNA(genome)
         k_mers = dna.get_k_mers(int(k))
 
-        if set(case_output) != set(k_mers):
+        if sorted(case_output) != sorted(k_mers):
             raise Exception("Output not matched!\nExpecting: " + str(case_output) + "\nFound: " + str(k_mers))
 
     print("Passed training data..")

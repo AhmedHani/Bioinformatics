@@ -20,15 +20,11 @@ class DataWriter(object):
                 writer.write("\n")
                 writer.write("Memory Used: " + str(memory_used) + " MB")
 
-        if "Problem11" in self.__solution_dir:
+        if "Problem14" in self.__solution_dir:
             with open(os.path.join(self.__solution_dir, "output" + str(file_index) + ".txt"), 'w') as writer:
-                s = output_[0]
-                writer.write(str(output_[0]))
-                writer.write("\n")
-                writer.write(output_[1][0])
-                writer.write("\n")
-                writer.write(output_[1][1])
-                writer.write("\n")
+                for edge in sorted(output_.items()):
+                    writer.write(str(edge[0] + " -> " + str(edge[1])))
+                    writer.write("\n")
 
                 writer.write("\n\n\n")
                 writer.write("======")
