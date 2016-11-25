@@ -1827,5 +1827,5 @@ TTTTTTTAATG -> TTTTTTAATGC
 
 
 ======
-Execution Time: 0.665999889374 s
+Execution Time: 0.647000074387 s
 Memory Used: 21 MB

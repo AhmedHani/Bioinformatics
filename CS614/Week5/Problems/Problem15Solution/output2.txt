@@ -880,5 +880,5 @@ TTTTTCTCC -> TTTTCTCCG
 
 
 ======
-Execution Time: 0.151000022888 s
+Execution Time: 0.153000116348 s
 Memory Used: 21 MB
