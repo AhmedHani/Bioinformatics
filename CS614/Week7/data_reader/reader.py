@@ -32,7 +32,6 @@ class DataReader(object):
                                 current = score_matrix['A']
                                 current.append(float(row[0]))
                                 score_matrix['A'] = current
-
                             else:
                                 score_matrix['A'] = [float(row[0])]
 
@@ -40,7 +39,6 @@ class DataReader(object):
                                 current = score_matrix['C']
                                 current.append(float(row[1]))
                                 score_matrix['C'] = current
-
                             else:
                                 score_matrix['C'] = [float(row[1])]
 
@@ -48,7 +46,6 @@ class DataReader(object):
                                 current = score_matrix['G']
                                 current.append(float(row[2]))
                                 score_matrix['G'] = current
-
                             else:
                                 score_matrix['G'] = [float(row[2])]
 
@@ -56,7 +53,6 @@ class DataReader(object):
                                 current = score_matrix['T']
                                 current.append(float(row[3]))
                                 score_matrix['T'] = current
-
                             else:
                                 score_matrix['T'] = [float(row[3])]
 
