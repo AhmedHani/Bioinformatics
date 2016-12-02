@@ -1,0 +1,6 @@
+CATTCCA
+
+
+======
+Execution Time: 0.000999927520752 s
+Memory Used: 20 MB
